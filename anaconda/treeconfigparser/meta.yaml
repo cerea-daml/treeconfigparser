@@ -1,5 +1,5 @@
 {% set name = "treeconfigparser" %}
-{% set version = "1.0.1" %}
+{% set version = "1.0.2" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,11 +7,11 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: "b4cbdd420f88716958e5c321d908fd3dcfd64fd1c566ff9ee75ffad780249898"
+  sha256: 9471326dfb3c76fb78f835f856e7f5cfed5f7c93f6737068380be1e4a43308c9
 
 build:
   number: 0
-  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
   host:
@@ -29,9 +29,10 @@ test:
     - treeconfigparser
 
 about:
-  home: "https://gitlab.enpc.fr/cerea-da-team/treeconfigparser"
-  license: "MIT"
-  license_family: "MIT"
+  home: "https://github.com/cerea-daml/treeconfigparser"
+  license: MIT
+  license_family: MIT
   summary: "Custom configuration parser based on a tree"
-  doc_url: "https://cerea-da-team.gitlab.enpc.fr/treeconfigparser"
-  dev_url: "https://gitlab.enpc.fr/cerea-da-team/treeconfigparser"
+  doc_url: "https://cerea-daml.github.io/treeconfigparser"
+  dev_url: "https://github.com/cerea-daml/treeconfigparser"
+

@@ -9,7 +9,7 @@ Custom configuration parser based on a tree.
 
 [Documentation]
 
-[Documentation]: https://cerea-da-team.gitlab.enpc.fr/treeconfigparser
+[Documentation]: https://cerea-daml.github.io/treeconfigparser
 
 Installation
 ------------
