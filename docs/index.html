@@ -1,1 +1,2597 @@
-<h1>Hello!</h1>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>treeconfigparser API documentation</title>
+<meta name="description" content="Custom configuration parser based on a tree …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Package <code>treeconfigparser</code></h1>
+</header>
+<section id="section-intro">
+<p>Custom configuration parser based on a tree.</p>
+<p>This package provides the <code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code> class, which
+can be used to parse configuration files.
+The options are organised using a hierarchy of sections
+and can be accessed using the <code><a title="treeconfigparser.TreeConfigParser.get" href="#treeconfigparser.TreeConfigParser.get">TreeConfigParser.get()</a></code> method.</p>
+<h2 id="main-usage">Main Usage</h2>
+<p>A configuration file can be read and parsed as follows:</p>
+<pre><code>&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.read_file(file_name)
+</code></pre>
+<p>Equivalently, one can use the <code><a title="treeconfigparser.fromfile" href="#treeconfigparser.fromfile">fromfile()</a></code> function as follows:</p>
+<pre><code>&gt;&gt;&gt; config = fromfile(file_name)
+</code></pre>
+<h2 id="supported-formats">Supported Formats</h2>
+<p>Currently, two formats are supported for configuration files:
+the 'py' format and the 'cpp' format. The following option hierarchy:</p>
+<pre><code>section1
+    |
+    - option1 = val1
+    |
+    - subsection11
+    |   |
+    |   - option2 = val2
+    |
+    - subsection12
+    |   |
+    |   - option3 = val3
+</code></pre>
+<p>can be constructed with this file under the 'py' format:</p>
+<pre><code>[section1]
+    option1 = val1
+    [subsection11]
+        option2 = val2
+    [subsection12]
+        option3 = val3
+</code></pre>
+<p>and with this file under the 'cpp' format:</p>
+<pre><code>section1.option1 = val1
+section1.subsection11.option2 = val2
+section1.subsection12.option3 = val3
+</code></pre>
+<p>Comments can be included in the configuration file using a dedicated
+character (usually '#'). Everything which is on the right of this
+comment character is ignored by the parser.</p>
+<p>The parser supports cross-references in the file.
+For example, the following ('py'-formatted) file:</p>
+<pre><code>[section1]
+    option1 = a
+    option2 = %section1.option1%b
+</code></pre>
+<p>is translated into the following option hierarchy:</p>
+<pre><code>section1
+    |
+    - option1 = a
+    |
+    - option2 = ab
+</code></pre>
+<p>as long as the cross-reference character is set to '%'.</p>
+<h2 id="access-to-options">Access To Options</h2>
+<p>Once the file has been parsed, the options can be accessed
+using the section and option names. For example, if the
+option hierarchy is</p>
+<pre><code>section1
+    |
+    - option1 = 1
+    |
+    - subsection11
+    |   |
+    |   - option2 = 2
+    |
+    - subsection12
+    |   |
+    |   - option3 = 3
+</code></pre>
+<p>then individual options can be accessed as follows:</p>
+<pre><code>&gt;&gt;&gt; config.get(['section1', 'option1'])
+'1'
+&gt;&gt;&gt; config.get(['section1', 'subsection11', 'option2'])
+'2'
+&gt;&gt;&gt; config.get(['section1', 'subsection12', 'option3'])
+'3'
+</code></pre>
+<p>Optionnaly, an option can be converted to a different type
+using the <code><a title="treeconfigparser.string_conversion" href="#treeconfigparser.string_conversion">string_conversion()</a></code> function:</p>
+<pre><code>&gt;&gt;&gt; config.get(['section1', 'option1'], to_type='int')
+1
+</code></pre>
+<h2 id="programmatic-usage">Programmatic Usage</h2>
+<p>Alternatively, options can be added to a configuration using
+the <code><a title="treeconfigparser.TreeConfigParser.set" href="#treeconfigparser.TreeConfigParser.set">TreeConfigParser.set()</a></code> method. For example, the
+following option hierarchy:</p>
+<pre><code>section1
+    |
+    - option1 = 1
+    |
+    - subsection11
+    |   |
+    |   - option2 = 2
+    |
+    - subsection12
+    |   |
+    |   - option3 = 3
+</code></pre>
+<p>can be constructed as follows:</p>
+<pre><code>&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['section1', 'option1'], 
+...            value='1', update_tree=True)
+&gt;&gt;&gt; config.set(['section1', 'subsection11', 'option2'],
+...            value='2', update_tree=True)
+&gt;&gt;&gt; config.set(['section1', 'subsection12', 'option3'],
+...            value='3', update_tree=True)
+</code></pre>
+<p>Many more manipulations are possible using the <code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code>
+methods. Finally, the configuration can be written to a file using
+the <code><a title="treeconfigparser.TreeConfigParser.tofile" href="#treeconfigparser.TreeConfigParser.tofile">TreeConfigParser.tofile()</a></code> method.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Custom configuration parser based on a tree.
+
+.. include:: ./documentation.md
+&#34;&#34;&#34;
+
+from collections import OrderedDict
+from logging import DEBUG, INFO, WARNING, ERROR, CRITICAL
+from datetime import datetime
+
+from path import Path
+import numpy as np
+
+
+class TreeConfigParser:
+    &#34;&#34;&#34;Configuration parser class.
+
+    Attributes
+    ----------
+    tree : OrderedDict
+        The tree of options. Each element is either a
+        `TreeConfigParser` instance (for a subsection)
+        or directly a string (for an option).
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.tree = OrderedDict()
+
+    def get(self, keylist, **kwargs):
+        &#34;&#34;&#34;Returns the option value.
+
+        Uses the `string_conversion` function to convert the
+        value to any type.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option.
+        **kwargs : dict
+            Keyword arguments passed to the `string_conversion`
+            function.
+
+        Returns
+        -------
+        value
+            The option value, with the requested type.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+        ...            value=&#39;1&#39;, update_tree=True)
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;])
+        &#39;1&#39;
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+        ...            to_type=&#39;int&#39;)
+        1
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            return self.tree[key].get(keylist[1:], **kwargs)
+        return string_conversion(self.tree[key], **kwargs)
+
+    def set(self, keylist, value=&#39;&#39;, update_tree=False):
+        &#34;&#34;&#34;Sets an option value.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option.
+        value : str, optional
+            The new value for the option.
+        update_tree : bool, optional
+            If *True*, new (sub)sections are created if necessary.
+
+        Notes
+        -----
+        This method can only create new options. New sections can
+        be created if they are necessary for a new option, but empty
+        (sub)sections cannot be created.
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            if update_tree and key not in self.tree:
+                self.tree[key] = TreeConfigParser()
+            self.tree[key].set(keylist[1:], value, update_tree)
+        else:
+            self.tree[key] = value
+
+    def options(self, keylist=None):
+        &#34;&#34;&#34;Returns the list of options.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the section for
+            which we list the options (default: root).
+
+        Returns
+        -------
+        option_list : odict_keys
+            The list of options and subsections for the section.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+        ...            value=&#39;2&#39;, update_tree=True)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+        ...            value=&#39;3&#39;, update_tree=True)
+        &gt;&gt;&gt; config.options()
+        odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option2&#39;, &#39;subsection11&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].options(keylist[1:])
+        return self.tree.keys()
+
+    def remove_option(self, keylist):
+        &#34;&#34;&#34;Removes an option.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option or
+            subsection to remove.
+
+        Notes
+        -----
+        After this option is removed, the parent section may
+        be empty, but it is not removed.
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            self.tree[key].remove_option(keylist[1:])
+        else:
+            del self.tree[key]
+
+    def suboptions(self):
+        &#34;&#34;&#34;Returns the list of all (sub)options as keylists.
+
+        Returns
+        -------
+        keylistlist : list of list of str
+            The list of all available keylists.
+            Each keylist identifies one option.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+        ...            value=&#39;2&#39;, update_tree=True)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+        ...            value=&#39;3&#39;, update_tree=True)
+        &gt;&gt;&gt; config.suboptions()
+        [[&#39;option1&#39;], [&#39;section1&#39;, &#39;option2&#39;], \
+[&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;]]
+        &#34;&#34;&#34;
+        keylistlist = []
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                for subkeylist in self.tree[key].suboptions():
+                    keylistlist.append([key] + subkeylist)
+            else:
+                keylistlist.append([key])
+        return keylistlist
+
+    def merge(self, config, keylist=None, update_tree=False):
+        &#34;&#34;&#34;Merges an other configuration.
+
+        The other configuration&#39;s options are inserted in
+        the current tree, in a given section.
+
+        Parameters
+        ----------
+        config : TreeConfigParser instance
+            The other configuration.
+        keylist : list of str, optional
+            The list of names which identify the section
+            in which the other configuration should be
+            merged (default: root).
+        update_tree : bool, optional
+            If *True*, new (sub)sections are created if necessary.
+
+        Notes
+        -----
+        Ensure that the section names of both configuration
+        instances are compatible before merging. In case of
+        conflict, the updated values are those of *config*.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;], value=&#39;2&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = TreeConfigParser()
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;3&#39;)
+        &gt;&gt;&gt; other.set([&#39;option3&#39;], value=&#39;3&#39;)
+        &gt;&gt;&gt; config.merge(other, keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; config.options()
+        odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option2&#39;, &#39;option3&#39;])
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;option2&#39;])
+        &#39;3&#39;
+        &#34;&#34;&#34;
+        if keylist:
+            key = keylist[0]
+            if update_tree and key not in self.tree:
+                self.tree[key] = TreeConfigParser()
+            self.tree[key].merge(config, keylist[1:], update_tree)
+        else:
+            for key in config.tree:
+                if (key in self.tree
+                        and isinstance(config.tree[key], TreeConfigParser)
+                        and isinstance(self.tree[key], TreeConfigParser)):
+                    self.tree[key].merge(config.tree[key],
+                                         update_tree=update_tree)
+                elif isinstance(config.tree[key], TreeConfigParser):
+                    self.tree[key] = TreeConfigParser()
+                    self.tree[key].merge(config.tree[key],
+                                         update_tree=update_tree)
+                else:
+                    self.tree[key] = config.tree[key]
+
+    def substitution(self, old_string, new_string, keylist=None):
+        &#34;&#34;&#34;Performs a string substitution.
+
+        Replaces *old_string* by *new_string*. If *keylist*
+        identifies an option, the substitution is applied
+        only to that option. If *keylist* identifies a
+        section, the substitution is applied to all
+        options and subsections in that section.
+
+        Uses the `str.replace` method.
+
+        Parameters
+        ----------
+        old_string : str
+            The old `str` pattern.
+        new_string : str
+            The new `str` pattern.
+        keylist : list of str
+            The list of names which identify the option
+            or the section in which the substitution is applied
+            (default: root).
+        &#34;&#34;&#34;
+        if keylist:
+            self.tree[keylist[0]].substitution(old_string, new_string,
+                                               keylist[1:])
+        else:
+            for key in self.tree:
+                if isinstance(self.tree[key], TreeConfigParser):
+                    self.tree[key].substitution(old_string, new_string)
+                else:
+                    self.tree[key] = self.tree[key].replace(
+                        old_string, new_string)
+
+    def clone(self, keylist=None):
+        &#34;&#34;&#34;Return a copy of the (sub)configuration.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the (sub)configuration
+            to copy (default: root).
+
+        Returns
+        -------
+        copy : TreeConfigParser instance
+            The copy of the (sub)configuration.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = config.clone(keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+        &gt;&gt;&gt; other.options()
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option1&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].clone(keylist[1:])
+        clone_cfg = TreeConfigParser()
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                clone_cfg.tree[key] = self.tree[key].clone()
+            else:
+                clone_cfg.tree[key] = self.tree[key]
+        return clone_cfg
+
+    def subconfig(self, keylist=None):
+        &#34;&#34;&#34;Return a reference to the (sub)configuration.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the (sub)configuration
+            to reference (default: root).
+
+        Returns
+        -------
+        copy : TreeConfigParser instance
+            The reference to the (sub)configuration.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = config.subconfig(keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+        &gt;&gt;&gt; other.options()
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].subconfig(keylist[1:])
+        return self
+
+    # pylint: disable=too-many-arguments,too-many-locals,too-many-statements
+    def read_file(self,
+                  file_name,
+                  convention=&#39;py&#39;,
+                  comment_char=&#39;#&#39;,
+                  reference_char=&#39;%&#39;,
+                  indentation=4):
+        &#34;&#34;&#34;Reads and parses *file_name*.
+
+        This is the main method of the class.
+        The options are inserted in the current tree.
+
+        Parameters
+        ----------
+        file_name : str
+            The name of the file to parse.
+        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+            The format of the file.
+        comment_char : str, optional
+            The character used to delimit comments in the file.
+        reference_char : str, optional
+            The character used to delimit cross-references
+            in the file.
+        indentation : int, optional
+            The indentation used to add suboptions or
+            subsections in the file when using the &#39;py&#39; format.
+
+        Raises
+        ------
+        CrossReferenceError
+            If the cross-references cannot be solved.
+        &#34;&#34;&#34;
+        def is_tree_node(line):
+            line = line.strip()
+            return len(line) &gt; 2 and line[0] == &#39;[&#39; and line[-1] == &#39;]&#39;
+
+        def update_keylist(keylist, depth, indentation):
+            if depth % indentation:
+                raise IndentationError(line)
+            depth = depth // indentation
+            if depth &gt; len(keylist):
+                raise IndentationError(line)
+            return keylist[:depth]
+
+        def extract_tree_node(keylist, line, indentation):
+            key = line.strip()[1:-1]
+            keylist = update_keylist(keylist, line.find(key) - 1, indentation)
+            return keylist + [key]
+
+        def extract_tree_leaf_py(keylist, line, indentation):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            keylist = update_keylist(keylist, line.find(key), indentation)
+            self.set(keylist + [key], value, update_tree=True)
+            return keylist
+
+        def extract_tree_leaf_cpp(line):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            keylist = key.split(&#39;.&#39;)
+            self.set(keylist, value, update_tree=True)
+
+        def read_line_py(line, keylist, comment_char, indentation):
+            line = line.split(comment_char)[0]
+            if not line or line.isspace():
+                return keylist
+            if is_tree_node(line):
+                return extract_tree_node(keylist, line, indentation)
+            return extract_tree_leaf_py(keylist, line, indentation)
+
+        def read_line_cpp(line, comment_char):
+            line = line.split(comment_char)[0].strip()
+            if line and not line.isspace():
+                extract_tree_leaf_cpp(line)
+
+        def has_reference(value, reference_char):
+            return len(value) &gt; 2 and reference_char in value
+
+        def extract_references(value, reference_char):
+            return [
+                ref for (i, ref) in enumerate(value.split(reference_char))
+                if ref and i % 2
+            ]
+
+        def solve_references_string(value, max_rec, reference_char):
+            if not has_reference(value, reference_char):
+                return value
+            if max_rec == 0:
+                raise CrossReferenceError
+            reflist = extract_references(value, reference_char)
+            for ref in reflist:
+                keylist = ref.split(&#39;.&#39;)
+                subvalue = solve_references_keylist(keylist, max_rec - 1,
+                                                    reference_char)
+                value = value.replace(reference_char + ref + reference_char,
+                                      subvalue)
+            return value
+
+        def solve_references_keylist(keylist, max_rec, reference_char):
+            value = self.get(keylist)
+            value = solve_references_string(value, max_rec, reference_char)
+            self.set(keylist, value, update_tree=False)
+            return value
+
+        # read and parse file content
+        lines = Path(file_name).lines(retain=False)
+        if convention == &#39;py&#39;:
+            keylist = []
+            for line in lines:
+                keylist = read_line_py(line, keylist, comment_char,
+                                       indentation)
+        elif convention == &#39;cpp&#39;:
+            for line in lines:
+                read_line_cpp(line, comment_char)
+
+        # solve references
+        keylistlist = self.suboptions()
+        max_rec = len(keylistlist) - 1
+        for keylist in keylistlist:
+            solve_references_keylist(keylist, max_rec, reference_char)
+
+    def tofile(self, file_name, convention=&#39;py&#39;, indentation=4):
+        &#34;&#34;&#34;Writes the configuration options to a file.
+
+        Once written, the file can be read and parsed by an other
+        `TreeConfigParser` instance.
+
+        Parameters
+        ----------
+        file_name : str
+            The name of the file to write.
+        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+            The format of the file.
+        indentation : int, optional
+            The indentation used to add suboptions or
+            subsections in the file when using the &#39;py&#39; format.
+        &#34;&#34;&#34;
+        def write_tree_node_line_py(depth, indentation, key):
+            return [&#39; &#39; * depth * indentation + f&#39;[{key}]&#39;]
+
+        def write_tree_leaf_line_py(depth, indentation, key, value):
+            return [&#39; &#39; * depth * indentation + f&#39;{key} = {value}&#39;]
+
+        def write_tree_leaf_line_cpp(keylist, value):
+            return [&#39;.&#39;.join(keylist) + f&#39; = {value}&#39;]
+
+        def write_tree_py(tree, depth, indentation):
+            lines = []
+            for key in tree:
+                if isinstance(tree[key], TreeConfigParser):
+                    lines.extend(
+                        write_tree_node_line_py(depth, indentation, key))
+                    lines.extend(
+                        write_tree_py(tree[key].tree, depth + 1, indentation))
+                else:
+                    lines.extend(
+                        write_tree_leaf_line_py(depth, indentation, key,
+                                                tree[key]))
+            return lines
+
+        def write_tree_cpp(tree, keylist):
+            lines = []
+            for key in tree:
+                if isinstance(tree[key], TreeConfigParser):
+                    lines.extend(
+                        write_tree_cpp(tree[key].tree, keylist + [key]))
+                else:
+                    lines.extend(
+                        write_tree_leaf_line_cpp(keylist + [key], tree[key]))
+            return lines
+
+        # write lines
+        if convention == &#39;py&#39;:
+            lines = write_tree_py(self.tree, 0, indentation)
+        elif convention == &#39;cpp&#39;:
+            lines = write_tree_cpp(self.tree, [])
+        Path(file_name).write_lines(lines)
+
+
+class CrossReferenceError(Exception):
+    &#34;&#34;&#34;Exception class for cross-reference errors in config files.&#34;&#34;&#34;
+
+
+def string_conversion(value, to_type=&#39;string&#39;, **kwargs):
+    &#34;&#34;&#34;Converts a string to the given type.
+
+    Parameters
+    ----------
+    value : string
+        The string to convert.
+    to_type : {&#39;string&#39;, &#39;path&#39;, &#39;bool&#39;, &#39;int&#39;, &#39;float&#39;, &#39;stringlist&#39;, \
+&#39;log_level&#39;, &#39;np_fromfile&#39;, &#39;datetime&#39;}, optional
+        The conversion to use.
+    **kwargs : dict
+        Keyword arguments passed to the conversion function.
+        See the details below.
+
+    Other parameters
+    ----------------
+    use_eval : bool, optional
+        For the **string to int** and **string to float** conversions:
+        enables the use of the `eval` function (default: *False*).
+    sep : str, optional
+        For the **string to stringlist** conversion:
+        delimiter for the `split` function (default: *None*).
+    maxsplit : int, optional
+        For the **string to stringlist** conversion:
+        maximum number of splits for the `split` function (default: -1).
+    dtype : data-type, optional
+        For the **string to np_fromfile** conversion:
+        data type of the returned array (default `float`).
+    count : int, optional
+        For the **string to np_fromfile** conversion:
+        number of items to read (default -1).
+    offset : int, optional
+        For the **string to np_fromfile** conversion:
+        the offset (in bytes) from the file&#39;s current position (default 0).
+    convention : str, optional
+        For the **string to datetime** conversion:
+        format used in the `datetime.strptime` function
+        (default: &#39;%Y-%m-%d&#39;).
+        Special cases are created for &#39;polyphemus_date&#39;
+        (&#39;%Y-%m-%d&#39;), &#39;polyphemus_datetime&#39; (&#39;%Y-%m-%d_%H-%M&#39;),
+        and &#39;ecmwf_datetime&#39; (&#39;%Y-%m-%dT%H:%M:%SZ&#39;).
+
+    Returns
+    -------
+    converted_value
+        The converted string.
+
+    Notes
+    -----
+    **String to string**: no conversion is performed, directly returns
+    *value*.
+
+    **String to path**: converts the value to a `path.Path` instance.
+
+    **String to bool**: converts the value to a boolean.
+
+    - Returns *True* if *value* is &#39;true&#39;, &#39;yes&#39;, &#39;on&#39;, &#39;1&#39;.
+    - Returns *False* if *value* is &#39;false&#39;, &#39;no&#39;, &#39;off&#39;, or &#39;0&#39;.
+    - Raises a `ValueError` otherwise.
+
+    The comparison is case-insensitive.
+
+    **String to int**: converts the value to an integer. Use the `eval`
+    function if *use_eval* is True.
+
+    **String to float**: converts the value to a real. Use the `eval`
+    function if *use_eval* is True.
+
+    **String to stringlist**: converts the value to a list of strings
+    using the `split` function.
+
+    **String to log_level**: converts the value to a `logging` level.
+
+    - Returns `logging.DEBUG` if value is &#39;debug&#39;.
+    - Returns `logging.INFO` if value is &#39;info&#39;.
+    - Returns `logging.WARNING` if value is &#39;warning&#39;.
+    - Returns `logging.ERROR` if value is &#39;error&#39;.
+    - Returns `logging.CRITICAL` if value is &#39;critical&#39;.
+    - Raises `ValueError` otherwise.
+
+    The comparison is case-insensitive.
+
+    **String to np_fromfile** The value is assumed to be the name of
+    a binary file. It is converted to a `numpy.ndarray` using the
+    `numpy.fromfile` function.
+
+    **String to datetime**: converts the value to a
+    `datetime.datetime` instance using the `datetime.strptime` function.
+
+    Examples
+    --------
+    &gt;&gt;&gt; string_conversion(&#39;abc&#39;)
+    &#39;abc&#39;
+    &gt;&gt;&gt; string_conversion(&#39;/usr/bin&#39;, to_type=&#39;path&#39;)
+    Path(&#39;/usr/bin&#39;)
+    &gt;&gt;&gt; string_conversion(&#39;true&#39;, to_type=&#39;bool&#39;)
+    True
+    &gt;&gt;&gt; string_conversion(&#39;On&#39;, to_type=&#39;bool&#39;)
+    True
+    &gt;&gt;&gt; string_conversion(&#39;0&#39;, to_type=&#39;bool&#39;)
+    False
+    &gt;&gt;&gt; string_conversion(&#39;-10&#39;, to_type=&#39;int&#39;)
+    -10
+    &gt;&gt;&gt; string_conversion(&#39;3/2&#39;, to_type=&#39;float&#39;, use_eval=True)
+    1.5
+    &gt;&gt;&gt; string_conversion(&#39;a   bc def   g hi&#39;, to_type=&#39;stringlist&#39;)
+    [&#39;a&#39;, &#39;bc&#39;, &#39;def&#39;, &#39;g&#39;, &#39;hi&#39;]
+    &#34;&#34;&#34;
+    def string_to_string(value):
+        return value
+
+    def string_to_path(value):
+        return Path(value)
+
+    def string_to_bool(value):
+        if value.lower() in [&#39;true&#39;, &#39;yes&#39;, &#39;on&#39;, &#39;1&#39;]:
+            return True
+        if value.lower() in [&#39;false&#39;, &#39;no&#39;, &#39;off&#39;, &#39;0&#39;]:
+            return False
+        return ValueError(f&#39;&#34;{value}&#34; cannot be converted to bool&#39;)
+
+    def string_to_int(value, use_eval=False):
+        return int(eval(value)) if use_eval else int(value)  # pylint: disable=eval-used
+
+    def string_to_float(value, use_eval=False):
+        return float(eval(value)) if use_eval else float(value)  # pylint: disable=eval-used
+
+    def string_to_stringlist(value, sep=None, maxsplit=-1):
+        return value.split(sep, maxsplit)
+
+    def string_to_log_level(value):
+        levels = {
+            &#39;debug&#39;: DEBUG,
+            &#39;info&#39;: INFO,
+            &#39;warning&#39;: WARNING,
+            &#39;error&#39;: ERROR,
+            &#39;critical&#39;: CRITICAL
+        }
+        if value.lower() in levels:
+            return levels[value.lower()]
+        raise ValueError(f&#39;&#34;{value}&#34; cannot be converted to logging level&#39;)
+
+    def string_to_np_fromfile(value, dtype=float, count=-1, offset=0):
+        return np.fromfile(value, dtype=dtype, count=count, offset=offset)
+
+    def string_to_datetime(value, convention=&#39;%Y-%m-%d&#39;):
+        if convention.lower() in [&#39;polyphemus_date&#39;]:
+            convention = &#39;%Y-%m-%d&#39;
+        elif convention.lower() in [&#39;polyphemus_datetime&#39;]:
+            convention = &#39;%Y-%m-%d_%H-%M&#39;
+        elif convention.lower() in [&#39;ecmwf_datetime&#39;]:
+            convention = &#39;%Y-%m-%dT%H:%M:%SZ&#39;
+        return datetime.strptime(value, convention)
+
+    conversions = {
+        &#39;string&#39;: string_to_string,
+        &#39;path&#39;: string_to_path,
+        &#39;bool&#39;: string_to_bool,
+        &#39;int&#39;: string_to_int,
+        &#39;float&#39;: string_to_float,
+        &#39;stringlist&#39;: string_to_stringlist,
+        &#39;log_level&#39;: string_to_log_level,
+        &#39;np_fromfile&#39;: string_to_np_fromfile,
+        &#39;datetime&#39;: string_to_datetime,
+    }
+
+    if to_type in conversions:
+        return conversions[to_type](value, **kwargs)
+    raise TypeError(f&#39;unkown conversion &#34;string to {to_type}&#34;&#39;)
+
+
+def fromfile(file_name, **kwargs):
+    &#34;&#34;&#34;Reads and parses a configuration file.
+
+    Parameters
+    ----------
+    file_name : string
+        The name of the file to parse.
+    **kwargs : dict
+        Keyword arguments passed to the `TreeConfigParser.read_file`
+        method.
+
+    Returns
+    -------
+    config : TreeConfigParser
+        The configuration.
+
+    Notes
+    -----
+    This function creates an empty `TreeConfigParser` instance and
+    uses the `TreeConfigParser.read_file` method to parse the file.
+    &#34;&#34;&#34;
+    config = TreeConfigParser()
+    config.read_file(file_name, **kwargs)
+    return config</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="treeconfigparser.fromfile"><code class="name flex">
+<span>def <span class="ident">fromfile</span></span>(<span>file_name, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reads and parses a configuration file.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>file_name</code></strong> :&ensp;<code>string</code></dt>
+<dd>The name of the file to parse.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Keyword arguments passed to the <code><a title="treeconfigparser.TreeConfigParser.read_file" href="#treeconfigparser.TreeConfigParser.read_file">TreeConfigParser.read_file()</a></code>
+method.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code></dt>
+<dd>The configuration.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This function creates an empty <code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code> instance and
+uses the <code><a title="treeconfigparser.TreeConfigParser.read_file" href="#treeconfigparser.TreeConfigParser.read_file">TreeConfigParser.read_file()</a></code> method to parse the file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fromfile(file_name, **kwargs):
+    &#34;&#34;&#34;Reads and parses a configuration file.
+
+    Parameters
+    ----------
+    file_name : string
+        The name of the file to parse.
+    **kwargs : dict
+        Keyword arguments passed to the `TreeConfigParser.read_file`
+        method.
+
+    Returns
+    -------
+    config : TreeConfigParser
+        The configuration.
+
+    Notes
+    -----
+    This function creates an empty `TreeConfigParser` instance and
+    uses the `TreeConfigParser.read_file` method to parse the file.
+    &#34;&#34;&#34;
+    config = TreeConfigParser()
+    config.read_file(file_name, **kwargs)
+    return config</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.string_conversion"><code class="name flex">
+<span>def <span class="ident">string_conversion</span></span>(<span>value, to_type='string', **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Converts a string to the given type.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>value</code></strong> :&ensp;<code>string</code></dt>
+<dd>The string to convert.</dd>
+<dt><strong><code>to_type</code></strong> :&ensp;<code>{'string', 'path', 'bool', 'int', 'float', 'stringlist', 'log_level', 'np_fromfile', 'datetime'}</code>, optional</dt>
+<dd>The conversion to use.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Keyword arguments passed to the conversion function.
+See the details below.</dd>
+</dl>
+<h2 id="other-parameters">Other Parameters</h2>
+<dl>
+<dt><strong><code>use_eval</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>For the <strong>string to int</strong> and <strong>string to float</strong> conversions:
+enables the use of the <code>eval</code> function (default: <em>False</em>).</dd>
+<dt><strong><code>sep</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>For the <strong>string to stringlist</strong> conversion:
+delimiter for the <code>split</code> function (default: <em>None</em>).</dd>
+<dt><strong><code>maxsplit</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>For the <strong>string to stringlist</strong> conversion:
+maximum number of splits for the <code>split</code> function (default: -1).</dd>
+<dt><strong><code>dtype</code></strong> :&ensp;<code>data-type</code>, optional</dt>
+<dd>For the <strong>string to np_fromfile</strong> conversion:
+data type of the returned array (default <code>float</code>).</dd>
+<dt><strong><code>count</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>For the <strong>string to np_fromfile</strong> conversion:
+number of items to read (default -1).</dd>
+<dt><strong><code>offset</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>For the <strong>string to np_fromfile</strong> conversion:
+the offset (in bytes) from the file's current position (default 0).</dd>
+<dt><strong><code>convention</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>For the <strong>string to datetime</strong> conversion:
+format used in the <code>datetime.strptime</code> function
+(default: '%Y-%m-%d').
+Special cases are created for 'polyphemus_date'
+('%Y-%m-%d'), 'polyphemus_datetime' ('%Y-%m-%d_%H-%M'),
+and 'ecmwf_datetime' ('%Y-%m-%dT%H:%M:%SZ').</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>converted_value</code></dt>
+<dd>The converted string.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p><strong>String to string</strong>: no conversion is performed, directly returns
+<em>value</em>.</p>
+<p><strong>String to path</strong>: converts the value to a <code>path.Path</code> instance.</p>
+<p><strong>String to bool</strong>: converts the value to a boolean.</p>
+<ul>
+<li>Returns <em>True</em> if <em>value</em> is 'true', 'yes', 'on', '1'.</li>
+<li>Returns <em>False</em> if <em>value</em> is 'false', 'no', 'off', or '0'.</li>
+<li>Raises a <code>ValueError</code> otherwise.</li>
+</ul>
+<p>The comparison is case-insensitive.</p>
+<p><strong>String to int</strong>: converts the value to an integer. Use the <code>eval</code>
+function if <em>use_eval</em> is True.</p>
+<p><strong>String to float</strong>: converts the value to a real. Use the <code>eval</code>
+function if <em>use_eval</em> is True.</p>
+<p><strong>String to stringlist</strong>: converts the value to a list of strings
+using the <code>split</code> function.</p>
+<p><strong>String to log_level</strong>: converts the value to a <code>logging</code> level.</p>
+<ul>
+<li>Returns <code>logging.DEBUG</code> if value is 'debug'.</li>
+<li>Returns <code>logging.INFO</code> if value is 'info'.</li>
+<li>Returns <code>logging.WARNING</code> if value is 'warning'.</li>
+<li>Returns <code>logging.ERROR</code> if value is 'error'.</li>
+<li>Returns <code>logging.CRITICAL</code> if value is 'critical'.</li>
+<li>Raises <code>ValueError</code> otherwise.</li>
+</ul>
+<p>The comparison is case-insensitive.</p>
+<p><strong>String to np_fromfile</strong> The value is assumed to be the name of
+a binary file. It is converted to a <code>numpy.ndarray</code> using the
+<code>numpy.fromfile</code> function.</p>
+<p><strong>String to datetime</strong>: converts the value to a
+<code>datetime.datetime</code> instance using the <code>datetime.strptime</code> function.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; string_conversion('abc')
+'abc'
+&gt;&gt;&gt; string_conversion('/usr/bin', to_type='path')
+Path('/usr/bin')
+&gt;&gt;&gt; string_conversion('true', to_type='bool')
+True
+&gt;&gt;&gt; string_conversion('On', to_type='bool')
+True
+&gt;&gt;&gt; string_conversion('0', to_type='bool')
+False
+&gt;&gt;&gt; string_conversion('-10', to_type='int')
+-10
+&gt;&gt;&gt; string_conversion('3/2', to_type='float', use_eval=True)
+1.5
+&gt;&gt;&gt; string_conversion('a   bc def   g hi', to_type='stringlist')
+['a', 'bc', 'def', 'g', 'hi']
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def string_conversion(value, to_type=&#39;string&#39;, **kwargs):
+    &#34;&#34;&#34;Converts a string to the given type.
+
+    Parameters
+    ----------
+    value : string
+        The string to convert.
+    to_type : {&#39;string&#39;, &#39;path&#39;, &#39;bool&#39;, &#39;int&#39;, &#39;float&#39;, &#39;stringlist&#39;, \
+&#39;log_level&#39;, &#39;np_fromfile&#39;, &#39;datetime&#39;}, optional
+        The conversion to use.
+    **kwargs : dict
+        Keyword arguments passed to the conversion function.
+        See the details below.
+
+    Other parameters
+    ----------------
+    use_eval : bool, optional
+        For the **string to int** and **string to float** conversions:
+        enables the use of the `eval` function (default: *False*).
+    sep : str, optional
+        For the **string to stringlist** conversion:
+        delimiter for the `split` function (default: *None*).
+    maxsplit : int, optional
+        For the **string to stringlist** conversion:
+        maximum number of splits for the `split` function (default: -1).
+    dtype : data-type, optional
+        For the **string to np_fromfile** conversion:
+        data type of the returned array (default `float`).
+    count : int, optional
+        For the **string to np_fromfile** conversion:
+        number of items to read (default -1).
+    offset : int, optional
+        For the **string to np_fromfile** conversion:
+        the offset (in bytes) from the file&#39;s current position (default 0).
+    convention : str, optional
+        For the **string to datetime** conversion:
+        format used in the `datetime.strptime` function
+        (default: &#39;%Y-%m-%d&#39;).
+        Special cases are created for &#39;polyphemus_date&#39;
+        (&#39;%Y-%m-%d&#39;), &#39;polyphemus_datetime&#39; (&#39;%Y-%m-%d_%H-%M&#39;),
+        and &#39;ecmwf_datetime&#39; (&#39;%Y-%m-%dT%H:%M:%SZ&#39;).
+
+    Returns
+    -------
+    converted_value
+        The converted string.
+
+    Notes
+    -----
+    **String to string**: no conversion is performed, directly returns
+    *value*.
+
+    **String to path**: converts the value to a `path.Path` instance.
+
+    **String to bool**: converts the value to a boolean.
+
+    - Returns *True* if *value* is &#39;true&#39;, &#39;yes&#39;, &#39;on&#39;, &#39;1&#39;.
+    - Returns *False* if *value* is &#39;false&#39;, &#39;no&#39;, &#39;off&#39;, or &#39;0&#39;.
+    - Raises a `ValueError` otherwise.
+
+    The comparison is case-insensitive.
+
+    **String to int**: converts the value to an integer. Use the `eval`
+    function if *use_eval* is True.
+
+    **String to float**: converts the value to a real. Use the `eval`
+    function if *use_eval* is True.
+
+    **String to stringlist**: converts the value to a list of strings
+    using the `split` function.
+
+    **String to log_level**: converts the value to a `logging` level.
+
+    - Returns `logging.DEBUG` if value is &#39;debug&#39;.
+    - Returns `logging.INFO` if value is &#39;info&#39;.
+    - Returns `logging.WARNING` if value is &#39;warning&#39;.
+    - Returns `logging.ERROR` if value is &#39;error&#39;.
+    - Returns `logging.CRITICAL` if value is &#39;critical&#39;.
+    - Raises `ValueError` otherwise.
+
+    The comparison is case-insensitive.
+
+    **String to np_fromfile** The value is assumed to be the name of
+    a binary file. It is converted to a `numpy.ndarray` using the
+    `numpy.fromfile` function.
+
+    **String to datetime**: converts the value to a
+    `datetime.datetime` instance using the `datetime.strptime` function.
+
+    Examples
+    --------
+    &gt;&gt;&gt; string_conversion(&#39;abc&#39;)
+    &#39;abc&#39;
+    &gt;&gt;&gt; string_conversion(&#39;/usr/bin&#39;, to_type=&#39;path&#39;)
+    Path(&#39;/usr/bin&#39;)
+    &gt;&gt;&gt; string_conversion(&#39;true&#39;, to_type=&#39;bool&#39;)
+    True
+    &gt;&gt;&gt; string_conversion(&#39;On&#39;, to_type=&#39;bool&#39;)
+    True
+    &gt;&gt;&gt; string_conversion(&#39;0&#39;, to_type=&#39;bool&#39;)
+    False
+    &gt;&gt;&gt; string_conversion(&#39;-10&#39;, to_type=&#39;int&#39;)
+    -10
+    &gt;&gt;&gt; string_conversion(&#39;3/2&#39;, to_type=&#39;float&#39;, use_eval=True)
+    1.5
+    &gt;&gt;&gt; string_conversion(&#39;a   bc def   g hi&#39;, to_type=&#39;stringlist&#39;)
+    [&#39;a&#39;, &#39;bc&#39;, &#39;def&#39;, &#39;g&#39;, &#39;hi&#39;]
+    &#34;&#34;&#34;
+    def string_to_string(value):
+        return value
+
+    def string_to_path(value):
+        return Path(value)
+
+    def string_to_bool(value):
+        if value.lower() in [&#39;true&#39;, &#39;yes&#39;, &#39;on&#39;, &#39;1&#39;]:
+            return True
+        if value.lower() in [&#39;false&#39;, &#39;no&#39;, &#39;off&#39;, &#39;0&#39;]:
+            return False
+        return ValueError(f&#39;&#34;{value}&#34; cannot be converted to bool&#39;)
+
+    def string_to_int(value, use_eval=False):
+        return int(eval(value)) if use_eval else int(value)  # pylint: disable=eval-used
+
+    def string_to_float(value, use_eval=False):
+        return float(eval(value)) if use_eval else float(value)  # pylint: disable=eval-used
+
+    def string_to_stringlist(value, sep=None, maxsplit=-1):
+        return value.split(sep, maxsplit)
+
+    def string_to_log_level(value):
+        levels = {
+            &#39;debug&#39;: DEBUG,
+            &#39;info&#39;: INFO,
+            &#39;warning&#39;: WARNING,
+            &#39;error&#39;: ERROR,
+            &#39;critical&#39;: CRITICAL
+        }
+        if value.lower() in levels:
+            return levels[value.lower()]
+        raise ValueError(f&#39;&#34;{value}&#34; cannot be converted to logging level&#39;)
+
+    def string_to_np_fromfile(value, dtype=float, count=-1, offset=0):
+        return np.fromfile(value, dtype=dtype, count=count, offset=offset)
+
+    def string_to_datetime(value, convention=&#39;%Y-%m-%d&#39;):
+        if convention.lower() in [&#39;polyphemus_date&#39;]:
+            convention = &#39;%Y-%m-%d&#39;
+        elif convention.lower() in [&#39;polyphemus_datetime&#39;]:
+            convention = &#39;%Y-%m-%d_%H-%M&#39;
+        elif convention.lower() in [&#39;ecmwf_datetime&#39;]:
+            convention = &#39;%Y-%m-%dT%H:%M:%SZ&#39;
+        return datetime.strptime(value, convention)
+
+    conversions = {
+        &#39;string&#39;: string_to_string,
+        &#39;path&#39;: string_to_path,
+        &#39;bool&#39;: string_to_bool,
+        &#39;int&#39;: string_to_int,
+        &#39;float&#39;: string_to_float,
+        &#39;stringlist&#39;: string_to_stringlist,
+        &#39;log_level&#39;: string_to_log_level,
+        &#39;np_fromfile&#39;: string_to_np_fromfile,
+        &#39;datetime&#39;: string_to_datetime,
+    }
+
+    if to_type in conversions:
+        return conversions[to_type](value, **kwargs)
+    raise TypeError(f&#39;unkown conversion &#34;string to {to_type}&#34;&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="treeconfigparser.CrossReferenceError"><code class="flex name class">
+<span>class <span class="ident">CrossReferenceError</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Exception class for cross-reference errors in config files.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CrossReferenceError(Exception):
+    &#34;&#34;&#34;Exception class for cross-reference errors in config files.&#34;&#34;&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser"><code class="flex name class">
+<span>class <span class="ident">TreeConfigParser</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Configuration parser class.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>tree</code></strong> :&ensp;<code>OrderedDict</code></dt>
+<dd>The tree of options. Each element is either a
+<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code> instance (for a subsection)
+or directly a string (for an option).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TreeConfigParser:
+    &#34;&#34;&#34;Configuration parser class.
+
+    Attributes
+    ----------
+    tree : OrderedDict
+        The tree of options. Each element is either a
+        `TreeConfigParser` instance (for a subsection)
+        or directly a string (for an option).
+    &#34;&#34;&#34;
+    def __init__(self):
+        self.tree = OrderedDict()
+
+    def get(self, keylist, **kwargs):
+        &#34;&#34;&#34;Returns the option value.
+
+        Uses the `string_conversion` function to convert the
+        value to any type.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option.
+        **kwargs : dict
+            Keyword arguments passed to the `string_conversion`
+            function.
+
+        Returns
+        -------
+        value
+            The option value, with the requested type.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+        ...            value=&#39;1&#39;, update_tree=True)
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;])
+        &#39;1&#39;
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+        ...            to_type=&#39;int&#39;)
+        1
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            return self.tree[key].get(keylist[1:], **kwargs)
+        return string_conversion(self.tree[key], **kwargs)
+
+    def set(self, keylist, value=&#39;&#39;, update_tree=False):
+        &#34;&#34;&#34;Sets an option value.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option.
+        value : str, optional
+            The new value for the option.
+        update_tree : bool, optional
+            If *True*, new (sub)sections are created if necessary.
+
+        Notes
+        -----
+        This method can only create new options. New sections can
+        be created if they are necessary for a new option, but empty
+        (sub)sections cannot be created.
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            if update_tree and key not in self.tree:
+                self.tree[key] = TreeConfigParser()
+            self.tree[key].set(keylist[1:], value, update_tree)
+        else:
+            self.tree[key] = value
+
+    def options(self, keylist=None):
+        &#34;&#34;&#34;Returns the list of options.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the section for
+            which we list the options (default: root).
+
+        Returns
+        -------
+        option_list : odict_keys
+            The list of options and subsections for the section.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+        ...            value=&#39;2&#39;, update_tree=True)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+        ...            value=&#39;3&#39;, update_tree=True)
+        &gt;&gt;&gt; config.options()
+        odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option2&#39;, &#39;subsection11&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].options(keylist[1:])
+        return self.tree.keys()
+
+    def remove_option(self, keylist):
+        &#34;&#34;&#34;Removes an option.
+
+        Parameters
+        ----------
+        keylist : list of str
+            The list of names which identify the option or
+            subsection to remove.
+
+        Notes
+        -----
+        After this option is removed, the parent section may
+        be empty, but it is not removed.
+        &#34;&#34;&#34;
+        key = keylist[0]
+        if len(keylist) &gt; 1:
+            self.tree[key].remove_option(keylist[1:])
+        else:
+            del self.tree[key]
+
+    def suboptions(self):
+        &#34;&#34;&#34;Returns the list of all (sub)options as keylists.
+
+        Returns
+        -------
+        keylistlist : list of list of str
+            The list of all available keylists.
+            Each keylist identifies one option.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+        ...            value=&#39;2&#39;, update_tree=True)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+        ...            value=&#39;3&#39;, update_tree=True)
+        &gt;&gt;&gt; config.suboptions()
+        [[&#39;option1&#39;], [&#39;section1&#39;, &#39;option2&#39;], \
+[&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;]]
+        &#34;&#34;&#34;
+        keylistlist = []
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                for subkeylist in self.tree[key].suboptions():
+                    keylistlist.append([key] + subkeylist)
+            else:
+                keylistlist.append([key])
+        return keylistlist
+
+    def merge(self, config, keylist=None, update_tree=False):
+        &#34;&#34;&#34;Merges an other configuration.
+
+        The other configuration&#39;s options are inserted in
+        the current tree, in a given section.
+
+        Parameters
+        ----------
+        config : TreeConfigParser instance
+            The other configuration.
+        keylist : list of str, optional
+            The list of names which identify the section
+            in which the other configuration should be
+            merged (default: root).
+        update_tree : bool, optional
+            If *True*, new (sub)sections are created if necessary.
+
+        Notes
+        -----
+        Ensure that the section names of both configuration
+        instances are compatible before merging. In case of
+        conflict, the updated values are those of *config*.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;], value=&#39;2&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = TreeConfigParser()
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;3&#39;)
+        &gt;&gt;&gt; other.set([&#39;option3&#39;], value=&#39;3&#39;)
+        &gt;&gt;&gt; config.merge(other, keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; config.options()
+        odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option2&#39;, &#39;option3&#39;])
+        &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;option2&#39;])
+        &#39;3&#39;
+        &#34;&#34;&#34;
+        if keylist:
+            key = keylist[0]
+            if update_tree and key not in self.tree:
+                self.tree[key] = TreeConfigParser()
+            self.tree[key].merge(config, keylist[1:], update_tree)
+        else:
+            for key in config.tree:
+                if (key in self.tree
+                        and isinstance(config.tree[key], TreeConfigParser)
+                        and isinstance(self.tree[key], TreeConfigParser)):
+                    self.tree[key].merge(config.tree[key],
+                                         update_tree=update_tree)
+                elif isinstance(config.tree[key], TreeConfigParser):
+                    self.tree[key] = TreeConfigParser()
+                    self.tree[key].merge(config.tree[key],
+                                         update_tree=update_tree)
+                else:
+                    self.tree[key] = config.tree[key]
+
+    def substitution(self, old_string, new_string, keylist=None):
+        &#34;&#34;&#34;Performs a string substitution.
+
+        Replaces *old_string* by *new_string*. If *keylist*
+        identifies an option, the substitution is applied
+        only to that option. If *keylist* identifies a
+        section, the substitution is applied to all
+        options and subsections in that section.
+
+        Uses the `str.replace` method.
+
+        Parameters
+        ----------
+        old_string : str
+            The old `str` pattern.
+        new_string : str
+            The new `str` pattern.
+        keylist : list of str
+            The list of names which identify the option
+            or the section in which the substitution is applied
+            (default: root).
+        &#34;&#34;&#34;
+        if keylist:
+            self.tree[keylist[0]].substitution(old_string, new_string,
+                                               keylist[1:])
+        else:
+            for key in self.tree:
+                if isinstance(self.tree[key], TreeConfigParser):
+                    self.tree[key].substitution(old_string, new_string)
+                else:
+                    self.tree[key] = self.tree[key].replace(
+                        old_string, new_string)
+
+    def clone(self, keylist=None):
+        &#34;&#34;&#34;Return a copy of the (sub)configuration.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the (sub)configuration
+            to copy (default: root).
+
+        Returns
+        -------
+        copy : TreeConfigParser instance
+            The copy of the (sub)configuration.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = config.clone(keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+        &gt;&gt;&gt; other.options()
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option1&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].clone(keylist[1:])
+        clone_cfg = TreeConfigParser()
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                clone_cfg.tree[key] = self.tree[key].clone()
+            else:
+                clone_cfg.tree[key] = self.tree[key]
+        return clone_cfg
+
+    def subconfig(self, keylist=None):
+        &#34;&#34;&#34;Return a reference to the (sub)configuration.
+
+        Parameters
+        ----------
+        keylist : list of str, optional
+            The list of names which identify the (sub)configuration
+            to reference (default: root).
+
+        Returns
+        -------
+        copy : TreeConfigParser instance
+            The reference to the (sub)configuration.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+        ...            update_tree=True)
+        &gt;&gt;&gt; other = config.subconfig(keylist=[&#39;section1&#39;])
+        &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+        &gt;&gt;&gt; other.options()
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &gt;&gt;&gt; config.options([&#39;section1&#39;])
+        odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+        &#34;&#34;&#34;
+        if keylist:
+            return self.tree[keylist[0]].subconfig(keylist[1:])
+        return self
+
+    # pylint: disable=too-many-arguments,too-many-locals,too-many-statements
+    def read_file(self,
+                  file_name,
+                  convention=&#39;py&#39;,
+                  comment_char=&#39;#&#39;,
+                  reference_char=&#39;%&#39;,
+                  indentation=4):
+        &#34;&#34;&#34;Reads and parses *file_name*.
+
+        This is the main method of the class.
+        The options are inserted in the current tree.
+
+        Parameters
+        ----------
+        file_name : str
+            The name of the file to parse.
+        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+            The format of the file.
+        comment_char : str, optional
+            The character used to delimit comments in the file.
+        reference_char : str, optional
+            The character used to delimit cross-references
+            in the file.
+        indentation : int, optional
+            The indentation used to add suboptions or
+            subsections in the file when using the &#39;py&#39; format.
+
+        Raises
+        ------
+        CrossReferenceError
+            If the cross-references cannot be solved.
+        &#34;&#34;&#34;
+        def is_tree_node(line):
+            line = line.strip()
+            return len(line) &gt; 2 and line[0] == &#39;[&#39; and line[-1] == &#39;]&#39;
+
+        def update_keylist(keylist, depth, indentation):
+            if depth % indentation:
+                raise IndentationError(line)
+            depth = depth // indentation
+            if depth &gt; len(keylist):
+                raise IndentationError(line)
+            return keylist[:depth]
+
+        def extract_tree_node(keylist, line, indentation):
+            key = line.strip()[1:-1]
+            keylist = update_keylist(keylist, line.find(key) - 1, indentation)
+            return keylist + [key]
+
+        def extract_tree_leaf_py(keylist, line, indentation):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            keylist = update_keylist(keylist, line.find(key), indentation)
+            self.set(keylist + [key], value, update_tree=True)
+            return keylist
+
+        def extract_tree_leaf_cpp(line):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            keylist = key.split(&#39;.&#39;)
+            self.set(keylist, value, update_tree=True)
+
+        def read_line_py(line, keylist, comment_char, indentation):
+            line = line.split(comment_char)[0]
+            if not line or line.isspace():
+                return keylist
+            if is_tree_node(line):
+                return extract_tree_node(keylist, line, indentation)
+            return extract_tree_leaf_py(keylist, line, indentation)
+
+        def read_line_cpp(line, comment_char):
+            line = line.split(comment_char)[0].strip()
+            if line and not line.isspace():
+                extract_tree_leaf_cpp(line)
+
+        def has_reference(value, reference_char):
+            return len(value) &gt; 2 and reference_char in value
+
+        def extract_references(value, reference_char):
+            return [
+                ref for (i, ref) in enumerate(value.split(reference_char))
+                if ref and i % 2
+            ]
+
+        def solve_references_string(value, max_rec, reference_char):
+            if not has_reference(value, reference_char):
+                return value
+            if max_rec == 0:
+                raise CrossReferenceError
+            reflist = extract_references(value, reference_char)
+            for ref in reflist:
+                keylist = ref.split(&#39;.&#39;)
+                subvalue = solve_references_keylist(keylist, max_rec - 1,
+                                                    reference_char)
+                value = value.replace(reference_char + ref + reference_char,
+                                      subvalue)
+            return value
+
+        def solve_references_keylist(keylist, max_rec, reference_char):
+            value = self.get(keylist)
+            value = solve_references_string(value, max_rec, reference_char)
+            self.set(keylist, value, update_tree=False)
+            return value
+
+        # read and parse file content
+        lines = Path(file_name).lines(retain=False)
+        if convention == &#39;py&#39;:
+            keylist = []
+            for line in lines:
+                keylist = read_line_py(line, keylist, comment_char,
+                                       indentation)
+        elif convention == &#39;cpp&#39;:
+            for line in lines:
+                read_line_cpp(line, comment_char)
+
+        # solve references
+        keylistlist = self.suboptions()
+        max_rec = len(keylistlist) - 1
+        for keylist in keylistlist:
+            solve_references_keylist(keylist, max_rec, reference_char)
+
+    def tofile(self, file_name, convention=&#39;py&#39;, indentation=4):
+        &#34;&#34;&#34;Writes the configuration options to a file.
+
+        Once written, the file can be read and parsed by an other
+        `TreeConfigParser` instance.
+
+        Parameters
+        ----------
+        file_name : str
+            The name of the file to write.
+        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+            The format of the file.
+        indentation : int, optional
+            The indentation used to add suboptions or
+            subsections in the file when using the &#39;py&#39; format.
+        &#34;&#34;&#34;
+        def write_tree_node_line_py(depth, indentation, key):
+            return [&#39; &#39; * depth * indentation + f&#39;[{key}]&#39;]
+
+        def write_tree_leaf_line_py(depth, indentation, key, value):
+            return [&#39; &#39; * depth * indentation + f&#39;{key} = {value}&#39;]
+
+        def write_tree_leaf_line_cpp(keylist, value):
+            return [&#39;.&#39;.join(keylist) + f&#39; = {value}&#39;]
+
+        def write_tree_py(tree, depth, indentation):
+            lines = []
+            for key in tree:
+                if isinstance(tree[key], TreeConfigParser):
+                    lines.extend(
+                        write_tree_node_line_py(depth, indentation, key))
+                    lines.extend(
+                        write_tree_py(tree[key].tree, depth + 1, indentation))
+                else:
+                    lines.extend(
+                        write_tree_leaf_line_py(depth, indentation, key,
+                                                tree[key]))
+            return lines
+
+        def write_tree_cpp(tree, keylist):
+            lines = []
+            for key in tree:
+                if isinstance(tree[key], TreeConfigParser):
+                    lines.extend(
+                        write_tree_cpp(tree[key].tree, keylist + [key]))
+                else:
+                    lines.extend(
+                        write_tree_leaf_line_cpp(keylist + [key], tree[key]))
+            return lines
+
+        # write lines
+        if convention == &#39;py&#39;:
+            lines = write_tree_py(self.tree, 0, indentation)
+        elif convention == &#39;cpp&#39;:
+            lines = write_tree_cpp(self.tree, [])
+        Path(file_name).write_lines(lines)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="treeconfigparser.TreeConfigParser.clone"><code class="name flex">
+<span>def <span class="ident">clone</span></span>(<span>self, keylist=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a copy of the (sub)configuration.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional</dt>
+<dd>The list of names which identify the (sub)configuration
+to copy (default: root).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>copy</code></strong> :&ensp;<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a> instance</code></dt>
+<dd>The copy of the (sub)configuration.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['section1', 'option1'], value='1',
+...            update_tree=True)
+&gt;&gt;&gt; other = config.clone(keylist=['section1'])
+&gt;&gt;&gt; other.set(['option2'], value='2')
+&gt;&gt;&gt; other.options()
+odict_keys(['option1', 'option2'])
+&gt;&gt;&gt; config.options(['section1'])
+odict_keys(['option1'])
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def clone(self, keylist=None):
+    &#34;&#34;&#34;Return a copy of the (sub)configuration.
+
+    Parameters
+    ----------
+    keylist : list of str, optional
+        The list of names which identify the (sub)configuration
+        to copy (default: root).
+
+    Returns
+    -------
+    copy : TreeConfigParser instance
+        The copy of the (sub)configuration.
+
+    Examples
+    --------
+    &gt;&gt;&gt; config = TreeConfigParser()
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+    ...            update_tree=True)
+    &gt;&gt;&gt; other = config.clone(keylist=[&#39;section1&#39;])
+    &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+    &gt;&gt;&gt; other.options()
+    odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+    &gt;&gt;&gt; config.options([&#39;section1&#39;])
+    odict_keys([&#39;option1&#39;])
+    &#34;&#34;&#34;
+    if keylist:
+        return self.tree[keylist[0]].clone(keylist[1:])
+    clone_cfg = TreeConfigParser()
+    for key in self.tree:
+        if isinstance(self.tree[key], TreeConfigParser):
+            clone_cfg.tree[key] = self.tree[key].clone()
+        else:
+            clone_cfg.tree[key] = self.tree[key]
+    return clone_cfg</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, keylist, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the option value.</p>
+<p>Uses the <code><a title="treeconfigparser.string_conversion" href="#treeconfigparser.string_conversion">string_conversion()</a></code> function to convert the
+value to any type.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>The list of names which identify the option.</dd>
+<dt><strong><code>**kwargs</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Keyword arguments passed to the <code><a title="treeconfigparser.string_conversion" href="#treeconfigparser.string_conversion">string_conversion()</a></code>
+function.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>value</code></dt>
+<dd>The option value, with the requested type.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['section1', 'subsection11', 'option1'],
+...            value='1', update_tree=True)
+&gt;&gt;&gt; config.get(['section1', 'subsection11', 'option1'])
+'1'
+&gt;&gt;&gt; config.get(['section1', 'subsection11', 'option1'],
+...            to_type='int')
+1
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get(self, keylist, **kwargs):
+    &#34;&#34;&#34;Returns the option value.
+
+    Uses the `string_conversion` function to convert the
+    value to any type.
+
+    Parameters
+    ----------
+    keylist : list of str
+        The list of names which identify the option.
+    **kwargs : dict
+        Keyword arguments passed to the `string_conversion`
+        function.
+
+    Returns
+    -------
+    value
+        The option value, with the requested type.
+
+    Examples
+    --------
+    &gt;&gt;&gt; config = TreeConfigParser()
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+    ...            value=&#39;1&#39;, update_tree=True)
+    &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;])
+    &#39;1&#39;
+    &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option1&#39;],
+    ...            to_type=&#39;int&#39;)
+    1
+    &#34;&#34;&#34;
+    key = keylist[0]
+    if len(keylist) &gt; 1:
+        return self.tree[key].get(keylist[1:], **kwargs)
+    return string_conversion(self.tree[key], **kwargs)</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.merge"><code class="name flex">
+<span>def <span class="ident">merge</span></span>(<span>self, config, keylist=None, update_tree=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merges an other configuration.</p>
+<p>The other configuration's options are inserted in
+the current tree, in a given section.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>config</code></strong> :&ensp;<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a> instance</code></dt>
+<dd>The other configuration.</dd>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional</dt>
+<dd>The list of names which identify the section
+in which the other configuration should be
+merged (default: root).</dd>
+<dt><strong><code>update_tree</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <em>True</em>, new (sub)sections are created if necessary.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Ensure that the section names of both configuration
+instances are compatible before merging. In case of
+conflict, the updated values are those of <em>config</em>.</p>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['option1'], value='1')
+&gt;&gt;&gt; config.set(['section1', 'option2'], value='2',
+...            update_tree=True)
+&gt;&gt;&gt; other = TreeConfigParser()
+&gt;&gt;&gt; other.set(['option2'], value='3')
+&gt;&gt;&gt; other.set(['option3'], value='3')
+&gt;&gt;&gt; config.merge(other, keylist=['section1'])
+&gt;&gt;&gt; config.options()
+odict_keys(['option1', 'section1'])
+&gt;&gt;&gt; config.options(['section1'])
+odict_keys(['option2', 'option3'])
+&gt;&gt;&gt; config.get(['section1', 'option2'])
+'3'
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge(self, config, keylist=None, update_tree=False):
+    &#34;&#34;&#34;Merges an other configuration.
+
+    The other configuration&#39;s options are inserted in
+    the current tree, in a given section.
+
+    Parameters
+    ----------
+    config : TreeConfigParser instance
+        The other configuration.
+    keylist : list of str, optional
+        The list of names which identify the section
+        in which the other configuration should be
+        merged (default: root).
+    update_tree : bool, optional
+        If *True*, new (sub)sections are created if necessary.
+
+    Notes
+    -----
+    Ensure that the section names of both configuration
+    instances are compatible before merging. In case of
+    conflict, the updated values are those of *config*.
+
+    Examples
+    --------
+    &gt;&gt;&gt; config = TreeConfigParser()
+    &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;], value=&#39;2&#39;,
+    ...            update_tree=True)
+    &gt;&gt;&gt; other = TreeConfigParser()
+    &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;3&#39;)
+    &gt;&gt;&gt; other.set([&#39;option3&#39;], value=&#39;3&#39;)
+    &gt;&gt;&gt; config.merge(other, keylist=[&#39;section1&#39;])
+    &gt;&gt;&gt; config.options()
+    odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+    &gt;&gt;&gt; config.options([&#39;section1&#39;])
+    odict_keys([&#39;option2&#39;, &#39;option3&#39;])
+    &gt;&gt;&gt; config.get([&#39;section1&#39;, &#39;option2&#39;])
+    &#39;3&#39;
+    &#34;&#34;&#34;
+    if keylist:
+        key = keylist[0]
+        if update_tree and key not in self.tree:
+            self.tree[key] = TreeConfigParser()
+        self.tree[key].merge(config, keylist[1:], update_tree)
+    else:
+        for key in config.tree:
+            if (key in self.tree
+                    and isinstance(config.tree[key], TreeConfigParser)
+                    and isinstance(self.tree[key], TreeConfigParser)):
+                self.tree[key].merge(config.tree[key],
+                                     update_tree=update_tree)
+            elif isinstance(config.tree[key], TreeConfigParser):
+                self.tree[key] = TreeConfigParser()
+                self.tree[key].merge(config.tree[key],
+                                     update_tree=update_tree)
+            else:
+                self.tree[key] = config.tree[key]</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.options"><code class="name flex">
+<span>def <span class="ident">options</span></span>(<span>self, keylist=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the list of options.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional</dt>
+<dd>The list of names which identify the section for
+which we list the options (default: root).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>option_list</code></strong> :&ensp;<code>odict_keys</code></dt>
+<dd>The list of options and subsections for the section.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['option1'], value='1')
+&gt;&gt;&gt; config.set(['section1', 'option2'],
+...            value='2', update_tree=True)
+&gt;&gt;&gt; config.set(['section1', 'subsection11', 'option3'],
+...            value='3', update_tree=True)
+&gt;&gt;&gt; config.options()
+odict_keys(['option1', 'section1'])
+&gt;&gt;&gt; config.options(['section1'])
+odict_keys(['option2', 'subsection11'])
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def options(self, keylist=None):
+    &#34;&#34;&#34;Returns the list of options.
+
+    Parameters
+    ----------
+    keylist : list of str, optional
+        The list of names which identify the section for
+        which we list the options (default: root).
+
+    Returns
+    -------
+    option_list : odict_keys
+        The list of options and subsections for the section.
+
+    Examples
+    --------
+    &gt;&gt;&gt; config = TreeConfigParser()
+    &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+    ...            value=&#39;2&#39;, update_tree=True)
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+    ...            value=&#39;3&#39;, update_tree=True)
+    &gt;&gt;&gt; config.options()
+    odict_keys([&#39;option1&#39;, &#39;section1&#39;])
+    &gt;&gt;&gt; config.options([&#39;section1&#39;])
+    odict_keys([&#39;option2&#39;, &#39;subsection11&#39;])
+    &#34;&#34;&#34;
+    if keylist:
+        return self.tree[keylist[0]].options(keylist[1:])
+    return self.tree.keys()</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.read_file"><code class="name flex">
+<span>def <span class="ident">read_file</span></span>(<span>self, file_name, convention='py', comment_char='#', reference_char='%', indentation=4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reads and parses <em>file_name</em>.</p>
+<p>This is the main method of the class.
+The options are inserted in the current tree.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>file_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the file to parse.</dd>
+<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'cpp'}</code>, optional</dt>
+<dd>The format of the file.</dd>
+<dt><strong><code>comment_char</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The character used to delimit comments in the file.</dd>
+<dt><strong><code>reference_char</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The character used to delimit cross-references
+in the file.</dd>
+<dt><strong><code>indentation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The indentation used to add suboptions or
+subsections in the file when using the 'py' format.</dd>
+</dl>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code><a title="treeconfigparser.CrossReferenceError" href="#treeconfigparser.CrossReferenceError">CrossReferenceError</a></code></dt>
+<dd>If the cross-references cannot be solved.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_file(self,
+              file_name,
+              convention=&#39;py&#39;,
+              comment_char=&#39;#&#39;,
+              reference_char=&#39;%&#39;,
+              indentation=4):
+    &#34;&#34;&#34;Reads and parses *file_name*.
+
+    This is the main method of the class.
+    The options are inserted in the current tree.
+
+    Parameters
+    ----------
+    file_name : str
+        The name of the file to parse.
+    convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        The format of the file.
+    comment_char : str, optional
+        The character used to delimit comments in the file.
+    reference_char : str, optional
+        The character used to delimit cross-references
+        in the file.
+    indentation : int, optional
+        The indentation used to add suboptions or
+        subsections in the file when using the &#39;py&#39; format.
+
+    Raises
+    ------
+    CrossReferenceError
+        If the cross-references cannot be solved.
+    &#34;&#34;&#34;
+    def is_tree_node(line):
+        line = line.strip()
+        return len(line) &gt; 2 and line[0] == &#39;[&#39; and line[-1] == &#39;]&#39;
+
+    def update_keylist(keylist, depth, indentation):
+        if depth % indentation:
+            raise IndentationError(line)
+        depth = depth // indentation
+        if depth &gt; len(keylist):
+            raise IndentationError(line)
+        return keylist[:depth]
+
+    def extract_tree_node(keylist, line, indentation):
+        key = line.strip()[1:-1]
+        keylist = update_keylist(keylist, line.find(key) - 1, indentation)
+        return keylist + [key]
+
+    def extract_tree_leaf_py(keylist, line, indentation):
+        if &#39;=&#39; in line:
+            split = line.split(&#39;=&#39;, 1)
+            key = split[0].strip()
+            value = split[1].strip()
+        else:
+            key = line.strip()
+            value = &#39;&#39;
+        keylist = update_keylist(keylist, line.find(key), indentation)
+        self.set(keylist + [key], value, update_tree=True)
+        return keylist
+
+    def extract_tree_leaf_cpp(line):
+        if &#39;=&#39; in line:
+            split = line.split(&#39;=&#39;, 1)
+            key = split[0].strip()
+            value = split[1].strip()
+        else:
+            key = line.strip()
+            value = &#39;&#39;
+        keylist = key.split(&#39;.&#39;)
+        self.set(keylist, value, update_tree=True)
+
+    def read_line_py(line, keylist, comment_char, indentation):
+        line = line.split(comment_char)[0]
+        if not line or line.isspace():
+            return keylist
+        if is_tree_node(line):
+            return extract_tree_node(keylist, line, indentation)
+        return extract_tree_leaf_py(keylist, line, indentation)
+
+    def read_line_cpp(line, comment_char):
+        line = line.split(comment_char)[0].strip()
+        if line and not line.isspace():
+            extract_tree_leaf_cpp(line)
+
+    def has_reference(value, reference_char):
+        return len(value) &gt; 2 and reference_char in value
+
+    def extract_references(value, reference_char):
+        return [
+            ref for (i, ref) in enumerate(value.split(reference_char))
+            if ref and i % 2
+        ]
+
+    def solve_references_string(value, max_rec, reference_char):
+        if not has_reference(value, reference_char):
+            return value
+        if max_rec == 0:
+            raise CrossReferenceError
+        reflist = extract_references(value, reference_char)
+        for ref in reflist:
+            keylist = ref.split(&#39;.&#39;)
+            subvalue = solve_references_keylist(keylist, max_rec - 1,
+                                                reference_char)
+            value = value.replace(reference_char + ref + reference_char,
+                                  subvalue)
+        return value
+
+    def solve_references_keylist(keylist, max_rec, reference_char):
+        value = self.get(keylist)
+        value = solve_references_string(value, max_rec, reference_char)
+        self.set(keylist, value, update_tree=False)
+        return value
+
+    # read and parse file content
+    lines = Path(file_name).lines(retain=False)
+    if convention == &#39;py&#39;:
+        keylist = []
+        for line in lines:
+            keylist = read_line_py(line, keylist, comment_char,
+                                   indentation)
+    elif convention == &#39;cpp&#39;:
+        for line in lines:
+            read_line_cpp(line, comment_char)
+
+    # solve references
+    keylistlist = self.suboptions()
+    max_rec = len(keylistlist) - 1
+    for keylist in keylistlist:
+        solve_references_keylist(keylist, max_rec, reference_char)</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.remove_option"><code class="name flex">
+<span>def <span class="ident">remove_option</span></span>(<span>self, keylist)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Removes an option.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>The list of names which identify the option or
+subsection to remove.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>After this option is removed, the parent section may
+be empty, but it is not removed.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_option(self, keylist):
+    &#34;&#34;&#34;Removes an option.
+
+    Parameters
+    ----------
+    keylist : list of str
+        The list of names which identify the option or
+        subsection to remove.
+
+    Notes
+    -----
+    After this option is removed, the parent section may
+    be empty, but it is not removed.
+    &#34;&#34;&#34;
+    key = keylist[0]
+    if len(keylist) &gt; 1:
+        self.tree[key].remove_option(keylist[1:])
+    else:
+        del self.tree[key]</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.set"><code class="name flex">
+<span>def <span class="ident">set</span></span>(<span>self, keylist, value='', update_tree=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sets an option value.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>The list of names which identify the option.</dd>
+<dt><strong><code>value</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The new value for the option.</dd>
+<dt><strong><code>update_tree</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>If <em>True</em>, new (sub)sections are created if necessary.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>This method can only create new options. New sections can
+be created if they are necessary for a new option, but empty
+(sub)sections cannot be created.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set(self, keylist, value=&#39;&#39;, update_tree=False):
+    &#34;&#34;&#34;Sets an option value.
+
+    Parameters
+    ----------
+    keylist : list of str
+        The list of names which identify the option.
+    value : str, optional
+        The new value for the option.
+    update_tree : bool, optional
+        If *True*, new (sub)sections are created if necessary.
+
+    Notes
+    -----
+    This method can only create new options. New sections can
+    be created if they are necessary for a new option, but empty
+    (sub)sections cannot be created.
+    &#34;&#34;&#34;
+    key = keylist[0]
+    if len(keylist) &gt; 1:
+        if update_tree and key not in self.tree:
+            self.tree[key] = TreeConfigParser()
+        self.tree[key].set(keylist[1:], value, update_tree)
+    else:
+        self.tree[key] = value</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.subconfig"><code class="name flex">
+<span>def <span class="ident">subconfig</span></span>(<span>self, keylist=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return a reference to the (sub)configuration.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional</dt>
+<dd>The list of names which identify the (sub)configuration
+to reference (default: root).</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>copy</code></strong> :&ensp;<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a> instance</code></dt>
+<dd>The reference to the (sub)configuration.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['section1', 'option1'], value='1',
+...            update_tree=True)
+&gt;&gt;&gt; other = config.subconfig(keylist=['section1'])
+&gt;&gt;&gt; other.set(['option2'], value='2')
+&gt;&gt;&gt; other.options()
+odict_keys(['option1', 'option2'])
+&gt;&gt;&gt; config.options(['section1'])
+odict_keys(['option1', 'option2'])
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def subconfig(self, keylist=None):
+    &#34;&#34;&#34;Return a reference to the (sub)configuration.
+
+    Parameters
+    ----------
+    keylist : list of str, optional
+        The list of names which identify the (sub)configuration
+        to reference (default: root).
+
+    Returns
+    -------
+    copy : TreeConfigParser instance
+        The reference to the (sub)configuration.
+
+    Examples
+    --------
+    &gt;&gt;&gt; config = TreeConfigParser()
+    &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option1&#39;], value=&#39;1&#39;,
+    ...            update_tree=True)
+    &gt;&gt;&gt; other = config.subconfig(keylist=[&#39;section1&#39;])
+    &gt;&gt;&gt; other.set([&#39;option2&#39;], value=&#39;2&#39;)
+    &gt;&gt;&gt; other.options()
+    odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+    &gt;&gt;&gt; config.options([&#39;section1&#39;])
+    odict_keys([&#39;option1&#39;, &#39;option2&#39;])
+    &#34;&#34;&#34;
+    if keylist:
+        return self.tree[keylist[0]].subconfig(keylist[1:])
+    return self</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.suboptions"><code class="name flex">
+<span>def <span class="ident">suboptions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns the list of all (sub)options as keylists.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>keylistlist</code></strong> :&ensp;<code>list</code> of <code>list</code> of <code>str</code></dt>
+<dd>The list of all available keylists.
+Each keylist identifies one option.</dd>
+</dl>
+<h2 id="examples">Examples</h2>
+<pre><code class="language-python-repl">&gt;&gt;&gt; config = TreeConfigParser()
+&gt;&gt;&gt; config.set(['option1'], value='1')
+&gt;&gt;&gt; config.set(['section1', 'option2'],
+...            value='2', update_tree=True)
+&gt;&gt;&gt; config.set(['section1', 'subsection11', 'option3'],
+...            value='3', update_tree=True)
+&gt;&gt;&gt; config.suboptions()
+[['option1'], ['section1', 'option2'], ['section1', 'subsection11', 'option3']]
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">    def suboptions(self):
+        &#34;&#34;&#34;Returns the list of all (sub)options as keylists.
+
+        Returns
+        -------
+        keylistlist : list of list of str
+            The list of all available keylists.
+            Each keylist identifies one option.
+
+        Examples
+        --------
+        &gt;&gt;&gt; config = TreeConfigParser()
+        &gt;&gt;&gt; config.set([&#39;option1&#39;], value=&#39;1&#39;)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;option2&#39;],
+        ...            value=&#39;2&#39;, update_tree=True)
+        &gt;&gt;&gt; config.set([&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;],
+        ...            value=&#39;3&#39;, update_tree=True)
+        &gt;&gt;&gt; config.suboptions()
+        [[&#39;option1&#39;], [&#39;section1&#39;, &#39;option2&#39;], \
+[&#39;section1&#39;, &#39;subsection11&#39;, &#39;option3&#39;]]
+        &#34;&#34;&#34;
+        keylistlist = []
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                for subkeylist in self.tree[key].suboptions():
+                    keylistlist.append([key] + subkeylist)
+            else:
+                keylistlist.append([key])
+        return keylistlist</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.substitution"><code class="name flex">
+<span>def <span class="ident">substitution</span></span>(<span>self, old_string, new_string, keylist=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Performs a string substitution.</p>
+<p>Replaces <em>old_string</em> by <em>new_string</em>. If <em>keylist</em>
+identifies an option, the substitution is applied
+only to that option. If <em>keylist</em> identifies a
+section, the substitution is applied to all
+options and subsections in that section.</p>
+<p>Uses the <code>str.replace</code> method.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>old_string</code></strong> :&ensp;<code>str</code></dt>
+<dd>The old <code>str</code> pattern.</dd>
+<dt><strong><code>new_string</code></strong> :&ensp;<code>str</code></dt>
+<dd>The new <code>str</code> pattern.</dd>
+<dt><strong><code>keylist</code></strong> :&ensp;<code>list</code> of <code>str</code></dt>
+<dd>The list of names which identify the option
+or the section in which the substitution is applied
+(default: root).</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def substitution(self, old_string, new_string, keylist=None):
+    &#34;&#34;&#34;Performs a string substitution.
+
+    Replaces *old_string* by *new_string*. If *keylist*
+    identifies an option, the substitution is applied
+    only to that option. If *keylist* identifies a
+    section, the substitution is applied to all
+    options and subsections in that section.
+
+    Uses the `str.replace` method.
+
+    Parameters
+    ----------
+    old_string : str
+        The old `str` pattern.
+    new_string : str
+        The new `str` pattern.
+    keylist : list of str
+        The list of names which identify the option
+        or the section in which the substitution is applied
+        (default: root).
+    &#34;&#34;&#34;
+    if keylist:
+        self.tree[keylist[0]].substitution(old_string, new_string,
+                                           keylist[1:])
+    else:
+        for key in self.tree:
+            if isinstance(self.tree[key], TreeConfigParser):
+                self.tree[key].substitution(old_string, new_string)
+            else:
+                self.tree[key] = self.tree[key].replace(
+                    old_string, new_string)</code></pre>
+</details>
+</dd>
+<dt id="treeconfigparser.TreeConfigParser.tofile"><code class="name flex">
+<span>def <span class="ident">tofile</span></span>(<span>self, file_name, convention='py', indentation=4)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Writes the configuration options to a file.</p>
+<p>Once written, the file can be read and parsed by an other
+<code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code> instance.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>file_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the file to write.</dd>
+<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'cpp'}</code>, optional</dt>
+<dd>The format of the file.</dd>
+<dt><strong><code>indentation</code></strong> :&ensp;<code>int</code>, optional</dt>
+<dd>The indentation used to add suboptions or
+subsections in the file when using the 'py' format.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def tofile(self, file_name, convention=&#39;py&#39;, indentation=4):
+    &#34;&#34;&#34;Writes the configuration options to a file.
+
+    Once written, the file can be read and parsed by an other
+    `TreeConfigParser` instance.
+
+    Parameters
+    ----------
+    file_name : str
+        The name of the file to write.
+    convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        The format of the file.
+    indentation : int, optional
+        The indentation used to add suboptions or
+        subsections in the file when using the &#39;py&#39; format.
+    &#34;&#34;&#34;
+    def write_tree_node_line_py(depth, indentation, key):
+        return [&#39; &#39; * depth * indentation + f&#39;[{key}]&#39;]
+
+    def write_tree_leaf_line_py(depth, indentation, key, value):
+        return [&#39; &#39; * depth * indentation + f&#39;{key} = {value}&#39;]
+
+    def write_tree_leaf_line_cpp(keylist, value):
+        return [&#39;.&#39;.join(keylist) + f&#39; = {value}&#39;]
+
+    def write_tree_py(tree, depth, indentation):
+        lines = []
+        for key in tree:
+            if isinstance(tree[key], TreeConfigParser):
+                lines.extend(
+                    write_tree_node_line_py(depth, indentation, key))
+                lines.extend(
+                    write_tree_py(tree[key].tree, depth + 1, indentation))
+            else:
+                lines.extend(
+                    write_tree_leaf_line_py(depth, indentation, key,
+                                            tree[key]))
+        return lines
+
+    def write_tree_cpp(tree, keylist):
+        lines = []
+        for key in tree:
+            if isinstance(tree[key], TreeConfigParser):
+                lines.extend(
+                    write_tree_cpp(tree[key].tree, keylist + [key]))
+            else:
+                lines.extend(
+                    write_tree_leaf_line_cpp(keylist + [key], tree[key]))
+        return lines
+
+    # write lines
+    if convention == &#39;py&#39;:
+        lines = write_tree_py(self.tree, 0, indentation)
+    elif convention == &#39;cpp&#39;:
+        lines = write_tree_cpp(self.tree, [])
+    Path(file_name).write_lines(lines)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#main-usage">Main usage</a></li>
+<li><a href="#supported-formats">Supported formats</a></li>
+<li><a href="#access-to-options">Access to options</a></li>
+<li><a href="#programmatic-usage">Programmatic usage</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="treeconfigparser.fromfile" href="#treeconfigparser.fromfile">fromfile</a></code></li>
+<li><code><a title="treeconfigparser.string_conversion" href="#treeconfigparser.string_conversion">string_conversion</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="treeconfigparser.CrossReferenceError" href="#treeconfigparser.CrossReferenceError">CrossReferenceError</a></code></h4>
+</li>
+<li>
+<h4><code><a title="treeconfigparser.TreeConfigParser" href="#treeconfigparser.TreeConfigParser">TreeConfigParser</a></code></h4>
+<ul class="two-column">
+<li><code><a title="treeconfigparser.TreeConfigParser.clone" href="#treeconfigparser.TreeConfigParser.clone">clone</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.get" href="#treeconfigparser.TreeConfigParser.get">get</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.merge" href="#treeconfigparser.TreeConfigParser.merge">merge</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.options" href="#treeconfigparser.TreeConfigParser.options">options</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.read_file" href="#treeconfigparser.TreeConfigParser.read_file">read_file</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.remove_option" href="#treeconfigparser.TreeConfigParser.remove_option">remove_option</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.set" href="#treeconfigparser.TreeConfigParser.set">set</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.subconfig" href="#treeconfigparser.TreeConfigParser.subconfig">subconfig</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.suboptions" href="#treeconfigparser.TreeConfigParser.suboptions">suboptions</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.substitution" href="#treeconfigparser.TreeConfigParser.substitution">substitution</a></code></li>
+<li><code><a title="treeconfigparser.TreeConfigParser.tofile" href="#treeconfigparser.TreeConfigParser.tofile">tofile</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
