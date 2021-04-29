@@ -1,3 +1,7 @@
+1.1.0 (2021-04-29)
+=====
+  - Added the support for the 'flat' format.
+
 1.0.2 (2021-04-21)
 =====
   - Moved to github.

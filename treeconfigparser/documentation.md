@@ -19,8 +19,28 @@ Equivalently, one can use the `fromfile` function as follows:
 Supported formats
 -----------------
 
-Currently, two formats are supported for configuration files: 
-the 'py' format and the 'cpp' format. The following option hierarchy:
+Currently, three formats are supported for configuration files: 
+the 'py' format, the 'flat' format, and the 'cpp' format. The
+'py' and 'cpp' formats support an arbitrary hierarchy depth,
+while the 'flat' format only supports one level of hierarchy. 
+
+The following option hierarchy:
+
+    section1
+        |
+        - option1 = val1
+    section2
+        |
+        - option2 = val2
+
+can be constructed with this file under the 'flat' format:
+
+    [section1]
+    option1 = val1
+    [section2]
+    option2 = val2
+
+The following option hierarchy:
 
     section1
         |
@@ -43,11 +63,13 @@ can be constructed with this file under the 'py' format:
         [subsection12]
             option3 = val3
 
-and with this file under the 'cpp' format:
+with this file under the 'cpp' format:
 
     section1.option1 = val1
     section1.subsection11.option2 = val2
     section1.subsection12.option3 = val3
+
+and cannot be constructed under the 'flat' format. 
 
 Comments can be included in the configuration file using a dedicated
 character (usually '#'). Everything which is on the right of this

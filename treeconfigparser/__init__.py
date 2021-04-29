@@ -340,7 +340,7 @@ class TreeConfigParser:
         ----------
         file_name : str
             The name of the file to parse.
-        convention : {'py', 'cpp'}, optional
+        convention : {'py', 'flat', 'cpp'}, optional
             The format of the file.
         comment_char : str, optional
             The character used to delimit comments in the file.
@@ -368,10 +368,13 @@ class TreeConfigParser:
                 raise IndentationError(line)
             return keylist[:depth]
 
-        def extract_tree_node(keylist, line, indentation):
+        def extract_tree_node_py(keylist, line, indentation):
             key = line.strip()[1:-1]
             keylist = update_keylist(keylist, line.find(key) - 1, indentation)
             return keylist + [key]
+
+        def extract_tree_node_flat(line):
+            return line.strip()[1:-1]
 
         def extract_tree_leaf_py(keylist, line, indentation):
             if '=' in line:
@@ -384,6 +387,17 @@ class TreeConfigParser:
             keylist = update_keylist(keylist, line.find(key), indentation)
             self.set(keylist + [key], value, update_tree=True)
             return keylist
+
+        def extract_tree_leaf_flat(section, line):
+            if '=' in line:
+                split = line.split('=', 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = ''
+            self.set([section, key], value, update_tree=True)
+            return section
 
         def extract_tree_leaf_cpp(line):
             if '=' in line:
@@ -401,8 +415,16 @@ class TreeConfigParser:
             if not line or line.isspace():
                 return keylist
             if is_tree_node(line):
-                return extract_tree_node(keylist, line, indentation)
+                return extract_tree_node_py(keylist, line, indentation)
             return extract_tree_leaf_py(keylist, line, indentation)
+
+        def read_line_flat(line, section, comment_char):
+            line = line.split(comment_char)[0]
+            if not line or line.isspace():
+                return section
+            if is_tree_node(line):
+                return extract_tree_node_flat(line)
+            return extract_tree_leaf_flat(section, line)
 
         def read_line_cpp(line, comment_char):
             line = line.split(comment_char)[0].strip()
@@ -445,6 +467,10 @@ class TreeConfigParser:
             for line in lines:
                 keylist = read_line_py(line, keylist, comment_char,
                                        indentation)
+        elif convention == 'flat':
+            section = None
+            for line in lines:
+                section = read_line_flat(line, section, comment_char)
         elif convention == 'cpp':
             for line in lines:
                 read_line_cpp(line, comment_char)
@@ -465,7 +491,7 @@ class TreeConfigParser:
         ----------
         file_name : str
             The name of the file to write.
-        convention : {'py', 'cpp'}, optional
+        convention : {'py', 'flat', 'cpp'}, optional
             The format of the file.
         indentation : int, optional
             The indentation used to add suboptions or
@@ -508,6 +534,8 @@ class TreeConfigParser:
         # write lines
         if convention == 'py':
             lines = write_tree_py(self.tree, 0, indentation)
+        elif convention == 'flat':
+            lines = write_tree_py(self.tree, 0, 0)
         elif convention == 'cpp':
             lines = write_tree_cpp(self.tree, [])
         Path(file_name).write_lines(lines)

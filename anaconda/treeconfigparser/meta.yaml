@@ -1,5 +1,5 @@
 {% set name = "treeconfigparser" %}
-{% set version = "1.0.2" %}
+{% set version = "1.1.0" %}
 
 package:
   name: "{{ name|lower }}"
@@ -7,7 +7,7 @@ package:
 
 source:
   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-  sha256: 9471326dfb3c76fb78f835f856e7f5cfed5f7c93f6737068380be1e4a43308c9
+  sha256: 58d90d89ce49ea9569016483c8e32a6523798db9bf943a7853863e77f978afdc
 
 build:
   number: 0

@@ -36,8 +36,25 @@ and can be accessed using the <code><a title="treeconfigparser.TreeConfigParser.
 <pre><code>&gt;&gt;&gt; config = fromfile(file_name)
 </code></pre>
 <h2 id="supported-formats">Supported Formats</h2>
-<p>Currently, two formats are supported for configuration files:
-the 'py' format and the 'cpp' format. The following option hierarchy:</p>
+<p>Currently, three formats are supported for configuration files:
+the 'py' format, the 'flat' format, and the 'cpp' format. The
+'py' and 'cpp' formats support an arbitrary hierarchy depth,
+while the 'flat' format only supports one level of hierarchy. </p>
+<p>The following option hierarchy:</p>
+<pre><code>section1
+    |
+    - option1 = val1
+section2
+    |
+    - option2 = val2
+</code></pre>
+<p>can be constructed with this file under the 'flat' format:</p>
+<pre><code>[section1]
+option1 = val1
+[section2]
+option2 = val2
+</code></pre>
+<p>The following option hierarchy:</p>
 <pre><code>section1
     |
     - option1 = val1
@@ -58,11 +75,12 @@ the 'py' format and the 'cpp' format. The following option hierarchy:</p>
     [subsection12]
         option3 = val3
 </code></pre>
-<p>and with this file under the 'cpp' format:</p>
+<p>with this file under the 'cpp' format:</p>
 <pre><code>section1.option1 = val1
 section1.subsection11.option2 = val2
 section1.subsection12.option3 = val3
 </code></pre>
+<p>and cannot be constructed under the 'flat' format. </p>
 <p>Comments can be included in the configuration file using a dedicated
 character (usually '#'). Everything which is on the right of this
 comment character is ignored by the parser.</p>
@@ -483,7 +501,7 @@ class TreeConfigParser:
         ----------
         file_name : str
             The name of the file to parse.
-        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
             The format of the file.
         comment_char : str, optional
             The character used to delimit comments in the file.
@@ -511,10 +529,13 @@ class TreeConfigParser:
                 raise IndentationError(line)
             return keylist[:depth]
 
-        def extract_tree_node(keylist, line, indentation):
+        def extract_tree_node_py(keylist, line, indentation):
             key = line.strip()[1:-1]
             keylist = update_keylist(keylist, line.find(key) - 1, indentation)
             return keylist + [key]
+
+        def extract_tree_node_flat(line):
+            return line.strip()[1:-1]
 
         def extract_tree_leaf_py(keylist, line, indentation):
             if &#39;=&#39; in line:
@@ -527,6 +548,17 @@ class TreeConfigParser:
             keylist = update_keylist(keylist, line.find(key), indentation)
             self.set(keylist + [key], value, update_tree=True)
             return keylist
+
+        def extract_tree_leaf_flat(section, line):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            self.set([section, key], value, update_tree=True)
+            return section
 
         def extract_tree_leaf_cpp(line):
             if &#39;=&#39; in line:
@@ -544,8 +576,16 @@ class TreeConfigParser:
             if not line or line.isspace():
                 return keylist
             if is_tree_node(line):
-                return extract_tree_node(keylist, line, indentation)
+                return extract_tree_node_py(keylist, line, indentation)
             return extract_tree_leaf_py(keylist, line, indentation)
+
+        def read_line_flat(line, section, comment_char):
+            line = line.split(comment_char)[0]
+            if not line or line.isspace():
+                return section
+            if is_tree_node(line):
+                return extract_tree_node_flat(line)
+            return extract_tree_leaf_flat(section, line)
 
         def read_line_cpp(line, comment_char):
             line = line.split(comment_char)[0].strip()
@@ -588,6 +628,10 @@ class TreeConfigParser:
             for line in lines:
                 keylist = read_line_py(line, keylist, comment_char,
                                        indentation)
+        elif convention == &#39;flat&#39;:
+            section = None
+            for line in lines:
+                section = read_line_flat(line, section, comment_char)
         elif convention == &#39;cpp&#39;:
             for line in lines:
                 read_line_cpp(line, comment_char)
@@ -608,7 +652,7 @@ class TreeConfigParser:
         ----------
         file_name : str
             The name of the file to write.
-        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
             The format of the file.
         indentation : int, optional
             The indentation used to add suboptions or
@@ -651,6 +695,8 @@ class TreeConfigParser:
         # write lines
         if convention == &#39;py&#39;:
             lines = write_tree_py(self.tree, 0, indentation)
+        elif convention == &#39;flat&#39;:
+            lines = write_tree_py(self.tree, 0, 0)
         elif convention == &#39;cpp&#39;:
             lines = write_tree_cpp(self.tree, [])
         Path(file_name).write_lines(lines)
@@ -1557,7 +1603,7 @@ or directly a string (for an option).</dd>
         ----------
         file_name : str
             The name of the file to parse.
-        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
             The format of the file.
         comment_char : str, optional
             The character used to delimit comments in the file.
@@ -1585,10 +1631,13 @@ or directly a string (for an option).</dd>
                 raise IndentationError(line)
             return keylist[:depth]
 
-        def extract_tree_node(keylist, line, indentation):
+        def extract_tree_node_py(keylist, line, indentation):
             key = line.strip()[1:-1]
             keylist = update_keylist(keylist, line.find(key) - 1, indentation)
             return keylist + [key]
+
+        def extract_tree_node_flat(line):
+            return line.strip()[1:-1]
 
         def extract_tree_leaf_py(keylist, line, indentation):
             if &#39;=&#39; in line:
@@ -1601,6 +1650,17 @@ or directly a string (for an option).</dd>
             keylist = update_keylist(keylist, line.find(key), indentation)
             self.set(keylist + [key], value, update_tree=True)
             return keylist
+
+        def extract_tree_leaf_flat(section, line):
+            if &#39;=&#39; in line:
+                split = line.split(&#39;=&#39;, 1)
+                key = split[0].strip()
+                value = split[1].strip()
+            else:
+                key = line.strip()
+                value = &#39;&#39;
+            self.set([section, key], value, update_tree=True)
+            return section
 
         def extract_tree_leaf_cpp(line):
             if &#39;=&#39; in line:
@@ -1618,8 +1678,16 @@ or directly a string (for an option).</dd>
             if not line or line.isspace():
                 return keylist
             if is_tree_node(line):
-                return extract_tree_node(keylist, line, indentation)
+                return extract_tree_node_py(keylist, line, indentation)
             return extract_tree_leaf_py(keylist, line, indentation)
+
+        def read_line_flat(line, section, comment_char):
+            line = line.split(comment_char)[0]
+            if not line or line.isspace():
+                return section
+            if is_tree_node(line):
+                return extract_tree_node_flat(line)
+            return extract_tree_leaf_flat(section, line)
 
         def read_line_cpp(line, comment_char):
             line = line.split(comment_char)[0].strip()
@@ -1662,6 +1730,10 @@ or directly a string (for an option).</dd>
             for line in lines:
                 keylist = read_line_py(line, keylist, comment_char,
                                        indentation)
+        elif convention == &#39;flat&#39;:
+            section = None
+            for line in lines:
+                section = read_line_flat(line, section, comment_char)
         elif convention == &#39;cpp&#39;:
             for line in lines:
                 read_line_cpp(line, comment_char)
@@ -1682,7 +1754,7 @@ or directly a string (for an option).</dd>
         ----------
         file_name : str
             The name of the file to write.
-        convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+        convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
             The format of the file.
         indentation : int, optional
             The indentation used to add suboptions or
@@ -1725,6 +1797,8 @@ or directly a string (for an option).</dd>
         # write lines
         if convention == &#39;py&#39;:
             lines = write_tree_py(self.tree, 0, indentation)
+        elif convention == &#39;flat&#39;:
+            lines = write_tree_py(self.tree, 0, 0)
         elif convention == &#39;cpp&#39;:
             lines = write_tree_cpp(self.tree, [])
         Path(file_name).write_lines(lines)</code></pre>
@@ -2046,7 +2120,7 @@ The options are inserted in the current tree.</p>
 <dl>
 <dt><strong><code>file_name</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name of the file to parse.</dd>
-<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'cpp'}</code>, optional</dt>
+<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'flat', 'cpp'}</code>, optional</dt>
 <dd>The format of the file.</dd>
 <dt><strong><code>comment_char</code></strong> :&ensp;<code>str</code>, optional</dt>
 <dd>The character used to delimit comments in the file.</dd>
@@ -2081,7 +2155,7 @@ subsections in the file when using the 'py' format.</dd>
     ----------
     file_name : str
         The name of the file to parse.
-    convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+    convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
         The format of the file.
     comment_char : str, optional
         The character used to delimit comments in the file.
@@ -2109,10 +2183,13 @@ subsections in the file when using the 'py' format.</dd>
             raise IndentationError(line)
         return keylist[:depth]
 
-    def extract_tree_node(keylist, line, indentation):
+    def extract_tree_node_py(keylist, line, indentation):
         key = line.strip()[1:-1]
         keylist = update_keylist(keylist, line.find(key) - 1, indentation)
         return keylist + [key]
+
+    def extract_tree_node_flat(line):
+        return line.strip()[1:-1]
 
     def extract_tree_leaf_py(keylist, line, indentation):
         if &#39;=&#39; in line:
@@ -2125,6 +2202,17 @@ subsections in the file when using the 'py' format.</dd>
         keylist = update_keylist(keylist, line.find(key), indentation)
         self.set(keylist + [key], value, update_tree=True)
         return keylist
+
+    def extract_tree_leaf_flat(section, line):
+        if &#39;=&#39; in line:
+            split = line.split(&#39;=&#39;, 1)
+            key = split[0].strip()
+            value = split[1].strip()
+        else:
+            key = line.strip()
+            value = &#39;&#39;
+        self.set([section, key], value, update_tree=True)
+        return section
 
     def extract_tree_leaf_cpp(line):
         if &#39;=&#39; in line:
@@ -2142,8 +2230,16 @@ subsections in the file when using the 'py' format.</dd>
         if not line or line.isspace():
             return keylist
         if is_tree_node(line):
-            return extract_tree_node(keylist, line, indentation)
+            return extract_tree_node_py(keylist, line, indentation)
         return extract_tree_leaf_py(keylist, line, indentation)
+
+    def read_line_flat(line, section, comment_char):
+        line = line.split(comment_char)[0]
+        if not line or line.isspace():
+            return section
+        if is_tree_node(line):
+            return extract_tree_node_flat(line)
+        return extract_tree_leaf_flat(section, line)
 
     def read_line_cpp(line, comment_char):
         line = line.split(comment_char)[0].strip()
@@ -2186,6 +2282,10 @@ subsections in the file when using the 'py' format.</dd>
         for line in lines:
             keylist = read_line_py(line, keylist, comment_char,
                                    indentation)
+    elif convention == &#39;flat&#39;:
+        section = None
+        for line in lines:
+            section = read_line_flat(line, section, comment_char)
     elif convention == &#39;cpp&#39;:
         for line in lines:
             read_line_cpp(line, comment_char)
@@ -2474,7 +2574,7 @@ or the section in which the substitution is applied
 <dl>
 <dt><strong><code>file_name</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name of the file to write.</dd>
-<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'cpp'}</code>, optional</dt>
+<dt><strong><code>convention</code></strong> :&ensp;<code>{'py', 'flat', 'cpp'}</code>, optional</dt>
 <dd>The format of the file.</dd>
 <dt><strong><code>indentation</code></strong> :&ensp;<code>int</code>, optional</dt>
 <dd>The indentation used to add suboptions or
@@ -2494,7 +2594,7 @@ subsections in the file when using the 'py' format.</dd>
     ----------
     file_name : str
         The name of the file to write.
-    convention : {&#39;py&#39;, &#39;cpp&#39;}, optional
+    convention : {&#39;py&#39;, &#39;flat&#39;, &#39;cpp&#39;}, optional
         The format of the file.
     indentation : int, optional
         The indentation used to add suboptions or
@@ -2537,6 +2637,8 @@ subsections in the file when using the 'py' format.</dd>
     # write lines
     if convention == &#39;py&#39;:
         lines = write_tree_py(self.tree, 0, indentation)
+    elif convention == &#39;flat&#39;:
+        lines = write_tree_py(self.tree, 0, 0)
     elif convention == &#39;cpp&#39;:
         lines = write_tree_cpp(self.tree, [])
     Path(file_name).write_lines(lines)</code></pre>
